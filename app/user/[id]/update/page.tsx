@@ -5,7 +5,7 @@ const updateUser = async (formData: FormData) => {
   "use server";
 
   try {
-    const res = await sql`UPDATE users
+    await sql`UPDATE users
     SET username = ${String(formData.get("username"))}, email = ${String(
       formData.get("email")
     )}
@@ -22,11 +22,7 @@ const UserUpdatingPage = async ({ params }: { params: { id: string } }) => {
   const user = rows[0];
   return (
     <form action={updateUser}>
-      <input
-        name="id"
-        defaultValue={params.id}
-        style={{ visibility: "hidden" }}
-      />
+      <input type="hidden" name="id" defaultValue={params.id} />
       <input
         name="username"
         defaultValue={user.username}
